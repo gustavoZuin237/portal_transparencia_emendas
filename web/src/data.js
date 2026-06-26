@@ -1,13 +1,10 @@
-const SEDIS = "Secretaria de Desenvolvimento e Inclusão Social";
-const SOBRAS = "Secretaria de Obras";
-
 export const data = [
   {
     id: "168.1",
     cod: "8040001",
     autor: "Alberto Barreto",
     tipo: "OSC",
-    sec: SEDIS,
+    sec: "Secretaria de Desenvolvimento e Inclusão Social",
     benef: "AFASCOM — Santa Verônica",
     obj: "Saber para Empreender — Recepção Acolhedora",
     obj_full:
@@ -27,7 +24,7 @@ export const data = [
     cod: "8040003",
     autor: "Alberto Barreto",
     tipo: "OSC",
-    sec: SEDIS,
+    sec: "Secretaria de Desenvolvimento e Inclusão Social",
     benef: "Casa do Ancião Luísa de Marillac",
     obj: "Custeio de atividades assistenciais — idosos",
     obj_full:
@@ -47,7 +44,7 @@ export const data = [
     cod: "8040065",
     autor: "Bilili de Angelis",
     tipo: "OSC",
-    sec: SEDIS,
+    sec: "Secretaria de Desenvolvimento e Inclusão Social",
     benef: "Casa do Ancião Luísa de Marillac",
     obj: "Custeio de atividades assistenciais — idosos",
     obj_full:
@@ -67,7 +64,7 @@ export const data = [
     cod: "8040253",
     autor: "João H. Dentinho",
     tipo: "OSC",
-    sec: SEDIS,
+    sec: "Secretaria de Desenvolvimento e Inclusão Social",
     benef: "Casa do Ancião Luísa de Marillac",
     obj: "Custeio de atividades assistenciais — idosos",
     obj_full:
@@ -87,7 +84,7 @@ export const data = [
     cod: "8040158",
     autor: "Douglas Carbonne",
     tipo: "OSC",
-    sec: SEDIS,
+    sec: "Secretaria de Desenvolvimento e Inclusão Social",
     benef: "Casa de Apoio Mulher e Vida",
     obj: "Estruturar para Acolher — material permanente",
     obj_full:
@@ -107,7 +104,7 @@ export const data = [
     cod: "8040488",
     autor: "Jessé Silva",
     tipo: "OSC",
-    sec: SEDIS,
+    sec: "Secretaria de Desenvolvimento e Inclusão Social",
     benef: "Casa de Apoio Mulher e Vida",
     obj: "Sustentar para Acolher — custeio operacional e RH",
     obj_full:
@@ -128,7 +125,7 @@ export const data = [
     cod: "8040488",
     autor: "Talita",
     tipo: "OSC",
-    sec: SEDIS,
+    sec: "Secretaria de Desenvolvimento e Inclusão Social",
     benef: "Casa de Apoio Mulher e Vida",
     obj: "Sustentar para Acolher — custeio operacional e RH",
     obj_full:
@@ -149,7 +146,7 @@ export const data = [
     cod: "8040488",
     autor: "Zelinda Pastora",
     tipo: "OSC",
-    sec: SEDIS,
+    sec: "Secretaria de Desenvolvimento e Inclusão Social",
     benef: "Casa de Apoio Mulher e Vida",
     obj: "Sustentar para Acolher — custeio operacional e RH",
     obj_full:
@@ -170,7 +167,7 @@ export const data = [
     cod: "8040488",
     autor: "Nicola Neto",
     tipo: "OSC",
-    sec: SEDIS,
+    sec: "Secretaria de Desenvolvimento e Inclusão Social",
     benef: "Casa de Apoio Mulher e Vida",
     obj: "Sustentar para Acolher — custeio operacional e RH",
     obj_full:
@@ -191,7 +188,7 @@ export const data = [
     cod: "8040324",
     autor: "Nicola Neto",
     tipo: "OSC",
-    sec: SEDIS,
+    sec: "Secretaria de Desenvolvimento e Inclusão Social",
     benef: "AFASCOM — Santa Verônica",
     obj: "Reforma do Corredor de Acesso",
     obj_full:
@@ -211,7 +208,7 @@ export const data = [
     cod: "8040328",
     autor: "Nicola Neto",
     tipo: "OSC",
-    sec: SEDIS,
+    sec: "Secretaria de Desenvolvimento e Inclusão Social",
     benef: "Projeto HAPET",
     obj: "Alimentando Gerações — custeio de atividades",
     obj_full:
@@ -231,7 +228,7 @@ export const data = [
     cod: "8040556",
     autor: "Zelinda Pastora",
     tipo: "OSC",
-    sec: SEDIS,
+    sec: "Secretaria de Desenvolvimento e Inclusão Social",
     benef: "Instituto VIDA",
     obj: "Inclusão Digital — material permanente",
     obj_full:
@@ -251,7 +248,7 @@ export const data = [
     cod: "8040558",
     autor: "Zelinda Pastora",
     tipo: "OSC",
-    sec: SEDIS,
+    sec: "Secretaria de Desenvolvimento e Inclusão Social",
     benef: "Associação Beneficente Vida Nova",
     obj: "Orquestra Jovem Vida Nova — custeio",
     obj_full:
@@ -341,7 +338,7 @@ export const data = [
     status: "Em processo",
     processo: "—",
     periodo: "Previsão: Maio/2026",
-    publico: "Unidades municipais da SEDIS",
+    publico: "Unidades municipais da Secretaria de Desenvolvimento e Inclusão Social",
     crono: 1,
     pt: 0,
     nf: 0,
@@ -355,13 +352,13 @@ export const data = [
     benef: "Secretaria de Serviços Públicos",
     obj: "Aquisição de equipamentos — Secretaria de Serviços Públicos",
     obj_full:
-      "Aquisição de mobiliário e equipamentos de informática para unidades da SEDIS. Execução: 76% concluída.",
+      "Aquisição de mobiliário e equipamentos de informática para unidades da Secretaria de Desenvolvimento e Inclusão Social. Execução: 76% concluída.",
     valor: "R$ 50.000",
     valor_num: 50000,
     status: "Em processo",
     processo: "—",
     periodo: "Previsão: Maio/2026",
-    publico: "Unidades municipais da SEDIS",
+    publico: "Unidades municipais da Secretaria de Desenvolvimento e Inclusão Social",
     crono: 1,
     pt: 0,
     nf: 0,

@@ -512,3 +512,16 @@ td.td-sep {
   line-height: 1.3;
   font-weight: 500;
 }
+
+.em-cod {
+  font-size: 10px;
+  color: #8ba8cc;
+}
+
+.doc-label--active {
+  color: inherit;
+}
+
+.doc-label--inactive {
+  color: #9ca3af;
+}
