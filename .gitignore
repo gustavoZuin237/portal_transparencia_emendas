@@ -1,6 +1,6 @@
-output
-input
-logs
-
+*.json
+*.log
+*.xlsx
 .venv
+
 __pycache__
