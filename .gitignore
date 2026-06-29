@@ -1,0 +1,6 @@
+output
+input
+logs
+
+.venv
+__pycache__

@@ -1,4 +1,13 @@
-import { data } from "./data.js";
+async function loadData() {
+  const response = await fetch("./emendas.json");
+  const data = await response.json();
+
+  return data;
+}
+
+const data = await loadData()
+
+console.log(data)
 
 const STATUS_BADGE_CLASSES = {
   "Análise técnica": "b-analise",
@@ -14,7 +23,6 @@ const STATUS_BADGE_CLASSES = {
 };
 
 const DOCUMENT_TYPES = [
-  { field: "crono", label: "Cronograma de Execução", color: "#3b82f6" },
   { field: "pt", label: "Plano de Trabalho", color: "#f97316" },
   { field: "nf", label: "Nota Fiscal / Comprovante", color: "#22c55e" },
 ];
