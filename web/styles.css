@@ -99,7 +99,8 @@ body {
 }
 table {
   width: 100%;
-  border-collapse: collapse;
+  border-collapse: separate;
+  border-spacing: 0;
   min-width: 960px;
 }
 thead tr {
@@ -125,12 +126,21 @@ th:hover {
 th.sorted {
   color: #e8890c;
 }
+
 th.docs-header {
+  width: 100%;
   background: #091828;
   color: #5a8ab0;
   text-align: center;
   cursor: default;
 }
+
+th.table-header {
+  width: 100%;
+  text-align: center;
+  cursor: default;
+}
+
 th.th-nd {
   cursor: default;
 }
@@ -516,6 +526,11 @@ td.td-sep {
 .em-cod {
   font-size: 10px;
   color: #8ba8cc;
+}
+
+.em-dataEstimadaConclusao {
+  font-size: 10px;
+  font-weight: bold;
 }
 
 .doc-label--active {

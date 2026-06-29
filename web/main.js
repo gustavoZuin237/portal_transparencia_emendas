@@ -1,13 +1,11 @@
 async function loadData() {
-  const response = await fetch("./emendas.json");
+  const response = await fetch("./input/emendas.json");
   const data = await response.json();
 
   return data;
 }
 
 const data = await loadData()
-
-console.log(data)
 
 const STATUS_BADGE_CLASSES = {
   "Análise técnica": "b-analise",
@@ -23,8 +21,8 @@ const STATUS_BADGE_CLASSES = {
 };
 
 const DOCUMENT_TYPES = [
-  { field: "pt", label: "Plano de Trabalho", color: "#f97316" },
-  { field: "nf", label: "Nota Fiscal / Comprovante", color: "#22c55e" },
+  { field: "planoTrabalho", label: "Plano de Trabalho", color: "#f97316" },
+  { field: "notaFiscal", label: "Nota Fiscal", color: "#22c55e" },
 ];
 
 const ELEMENTS = {
@@ -120,7 +118,9 @@ function renderTable(amendments) {
   ELEMENTS.tableBody.querySelectorAll("tr[data-id]").forEach((row) => {
     row.addEventListener("click", (event) => {
       if (event.target.closest(".doc-btn")) return;
-      const amendment = data.find((item) => String(item.id) === row.dataset.id);
+      const amendment = data.find((item) => String(item.numeroEmenda) === row.dataset.id);
+
+      console.log(amendment)
       openDrawer(amendment);
     });
   });
@@ -148,17 +148,19 @@ function buildTableRow(amendment) {
   }).join("");
 
   return (
-    `<tr data-id="${amendment.id}">` +
-    `<td class="td-nw"><span class="em-num">${amendment.id}</span></td>` +
-    `<td class="td-nw"><span class="em-cod">${amendment.cod}</span></td>` +
-    `<td><span class="em-autor">${amendment.autor}</span></td>` +
+    `<tr data-id="${amendment.numeroEmenda}">` +
+    `<td class="td-nw"><span class="em-num">${amendment.numeroEmenda}</span></td>` +
+    `<td><span class="em-autor">${amendment.parlamentarAutor}</span></td>` +
     `<td>` +
-    `<span class="em-benef">${amendment.benef}</span>` +
-    `<span class="em-sec">${amendment.sec}</span>` +
+    `<span class="em-benef">${amendment.beneficiario}</span>` +
     `</td>` +
-    `<td><span class="em-obj" title="${amendment.obj}">${amendment.obj}</span></td>` +
-    `<td class="td-nw"><span class="em-valor">${amendment.valor}</span></td>` +
+    `<td><span class="em-obj" title="${amendment.objeto}">${amendment.objeto}</span></td>` +
+    `<td class="td-nw"><span class="em-valor">${amendment.valorPrevisto}</span></td>` +
+    `<td class="td-nw"><span class="em-valor">${amendment.valorEmpenhado}</span></td>` +
+    `<td class="td-nw"><span class="em-valor">${amendment.valorLiquidado}</span></td>` +
+    `<td class="td-nw"><span class="em-valor">${amendment.valorPago}</span></td>` +
     `<td class="td-nw"><span class="badge ${badgeClass}">${amendment.status}</span></td>` +
+    `<td class="td-nw"><span class="em-dataEstimadaConclusao">${amendment.dataEstimadaConclusao}</span></td>` +
     docCells +
     `</tr>`
   );
@@ -231,43 +233,33 @@ function handleColumnSort(columnKey, headerEl) {
 }
 
 function openDrawer(amendment) {
-  const badgeClass = STATUS_BADGE_CLASSES[amendment.status] ?? "b-analise";
-  const typeLabel =
-    amendment.tipo === "OSC"
-      ? "Entidade (OSC)"
-      : "Execução direta pela administração municipal";
+  console.log(amendment)
 
-  ELEMENTS.drawerTitle.textContent = `${amendment.id} — ${amendment.benef}`;
-  ELEMENTS.drawerSubtitle.textContent = amendment.obj;
+  const badgeClass = STATUS_BADGE_CLASSES[amendment.status] ?? "b-analise";
+
+  ELEMENTS.drawerTitle.textContent = `${amendment.numeroEmenda} — ${amendment.beneficiario}`;
+  ELEMENTS.drawerSubtitle.textContent = amendment.objeto;
 
   const identificationFields =
     `<div class="drw-field">` +
     `<div class="drw-lbl">Status</div>` +
     `<span class="badge ${badgeClass}">${amendment.status}</span>` +
     `</div>` +
-    buildDrawerField("Tipo", typeLabel) +
-    buildDrawerField("Secretaria gestora", amendment.sec) +
-    buildDrawerField("Autor(a)", amendment.autor) +
-    (amendment.processo !== "—"
-      ? buildDrawerField(
-          "Processo administrativo",
-          `<span class="mono">${amendment.processo}</span>`,
-        )
-      : "") +
-    (amendment.cod !== "—"
-      ? buildDrawerField(
-          "Código de aplicação",
-          `<span class="mono">${amendment.cod}</span>`,
-        )
-      : "");
+    buildDrawerField("Autor(a)", amendment.parlamentarAutor);
 
   const resourceFields =
-    buildDrawerField("Descrição", amendment.obj_full) +
     (amendment.valor !== "—"
-      ? buildDrawerField("Valor", `<span class="big">${amendment.valor}</span>`)
+      ? buildDrawerField("Valor Previsto", `<span class="big">${amendment.valorPrevisto}</span>`)
       : "") +
-    buildDrawerField("Período", amendment.periodo) +
-    buildDrawerField("Público-alvo", amendment.publico);
+    (amendment.valor !== "—"
+      ? buildDrawerField("Valor Empenhado", `<span class="big">${amendment.valorEmpenhado}</span>`)
+      : "") +
+    (amendment.valor !== "—"
+      ? buildDrawerField("Valor Liquidado", `<span class="big">${amendment.valorLiquidado}</span>`)
+      : "") +
+    (amendment.valor !== "—"
+      ? buildDrawerField("Valor Pago", `<span class="big">${amendment.valorPago}</span>`)
+      : "");
 
   ELEMENTS.drawerBody.innerHTML =
     buildDrawerSection("Identificação", identificationFields) +
