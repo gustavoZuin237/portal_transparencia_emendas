@@ -1,0 +1,278 @@
+/* ── Table wrapper ───────────────────────────────────────── */
+.table-wrap {
+  overflow-x: auto;
+}
+table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  min-width: 960px;
+}
+
+/* ── thead ───────────────────────────────────────────────── */
+thead tr {
+  background: var(--c-bg-dark);
+}
+th {
+  color: var(--c-text-muted);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 9px 12px;
+  text-align: left;
+  white-space: nowrap;
+  border-bottom: 1px solid var(--c-border);
+  user-select: none;
+  transition: color 0.12s;
+}
+th.table-header {
+  min-width: 150px;
+  width: auto;
+  text-align: center;
+  cursor: pointer;
+}
+th.table-header:hover {
+  color: var(--c-text-input);
+}
+th.table-header.sorted {
+  color: var(--c-accent);
+}
+th.th-group {
+  /* First header row: "EMENDAS" / "DOCUMENTOS" group labels */
+  background: var(--c-bg-dark);
+  color: var(--c-text-muted);
+  font-size: 10px;
+  border-bottom: 1px solid var(--c-accent);
+  padding-bottom: 4px;
+  cursor: default;
+}
+th.docs-header {
+  background: var(--c-bg-deep);
+  color: #5a8ab0;
+  text-align: center;
+  cursor: default;
+}
+.th-sep {
+  border-left: 2px solid var(--c-accent) !important;
+}
+
+/* ── tbody ───────────────────────────────────────────────── */
+tbody tr {
+  border-bottom: 0.5px solid #e5e9ef;
+  transition: background 0.12s;
+  cursor: pointer;
+}
+tbody tr:nth-child(even) {
+  background: var(--c-row-even);
+}
+tbody tr:hover {
+  background: var(--c-hover-row);
+}
+
+/* ── Cells ───────────────────────────────────────────────── */
+td {
+  padding: 9px 12px;
+  vertical-align: middle;
+  color: var(--c-text-body);
+  font-size: 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 0;
+}
+td.td-center {
+  text-align: center;
+  max-width: none;
+}
+td.td-nw {
+  white-space: nowrap;
+  min-width: auto;
+}
+td.td-sep {
+  border-left: 2px solid var(--c-accent);
+}
+
+/* ── Cell content ────────────────────────────────────────── */
+.em-num {
+  font-weight: 600;
+  color: #2563eb;
+  font-size: 12px;
+  white-space: nowrap;
+}
+.em-autor {
+  color: var(--c-text-subtle);
+  font-size: 11px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+}
+.em-benef {
+  font-size: 12px;
+  color: var(--c-text-body);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: block;
+}
+.em-obj {
+  font-size: 11px;
+  color: var(--c-text-subtle);
+  line-height: 1.35;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: block;
+}
+.em-valor {
+  font-weight: 500;
+  white-space: nowrap;
+  font-size: 12px;
+}
+.em-dataEstimadaConclusao {
+  font-size: 10px;
+  font-weight: bold;
+}
+
+/* ── Status badges ───────────────────────────────────────── */
+.badge {
+  display: inline-block;
+  padding: 3px 8px;
+  border-radius: 20px;
+  font-size: 10px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.b-analise {
+  width: 85px;
+  text-align: center;
+  background: #f1f5f9;
+  color: #475569;
+  border: 1px solid #cbd5e1;
+}
+.b-aprovado {
+  width: 85px;
+  text-align: center;
+  background: #dbeafe;
+  color: #1d4ed8;
+  border: 1px solid #93c5fd;
+}
+.b-reprovado {
+  width: 85px;
+  text-align: center;
+  background: #fee2e2;
+  color: #b91c1c;
+  border: 1px solid #fca5a5;
+}
+.b-aguardando {
+  width: 85px;
+  text-align: center;
+  background: #fef3c7;
+  color: #92400e;
+  border: 1px solid #fcd34d;
+}
+.b-processo {
+  width: 85px;
+  text-align: center;
+  background: #e0e7ff;
+  color: #4338ca;
+  border: 1px solid #a5b4fc;
+}
+.b-empenhado {
+  width: 85px;
+  text-align: center;
+  background: #f3e8ff;
+  color: #7e22ce;
+  border: 1px solid #d8b4fe;
+}
+.b-liquidado {
+  width: 85px;
+  text-align: center;
+  background: #ccfbf1;
+  color: #0f766e;
+  border: 1px solid #5eead4;
+}
+.b-pago {
+  width: 85px;
+  text-align: center;
+  background: #dcfce7;
+  color: #166534;
+  border: 1px solid #86efac;
+}
+.b-concluido {
+  width: 85px;
+  text-align: center;
+  background: #d1fae5;
+  color: #065f46;
+  border: 1px solid #6ee7b7;
+}
+.b-devolvida {
+  width: 85px;
+  text-align: center;
+  background: #fee2e2;
+  color: #b91c1c;
+  border: 1px solid #fca5a5;
+}
+
+/* ── Document buttons (table cells) ─────────────────────── */
+.doc-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  border: 1px solid #dde3ea;
+  background: #f7f9fc;
+  cursor: pointer;
+  transition: all 0.12s;
+  text-decoration: none;
+  margin: 0 2px;
+  position: relative;
+}
+.doc-btn svg {
+  width: 14px;
+  height: 14px;
+}
+.doc-btn:hover {
+  background: #dbeafe;
+  border-color: #93c5fd;
+  transform: translateY(-1px);
+}
+.doc-btn .tip {
+  position: absolute;
+  bottom: calc(100% + 5px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--c-bg-mid);
+  color: var(--c-text-input);
+  font-size: 10px;
+  white-space: nowrap;
+  padding: 3px 7px;
+  border-radius: 4px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s;
+  z-index: 100;
+  border: 1px solid var(--c-border-input);
+}
+.doc-btn:hover .tip {
+  opacity: 1;
+}
+.doc-na {
+  width: 28px;
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 2px;
+  color: #c0ccd8;
+  font-size: 12px;
+}
+.empty-row td {
+  text-align: center;
+  padding: 40px;
+  color: #9fb0c0;
+  font-size: 13px;
+  max-width: none;
+}

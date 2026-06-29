@@ -1,49 +1,80 @@
 async function loadData() {
   const response = await fetch("./input/emendas.json");
-  const data = await response.json();
-
-  return data;
+  return response.json();
 }
 
-const data = await loadData()
+const data = await loadData();
+
+// ── Constants ────────────────────────────────────────────────
 
 const STATUS_BADGE_CLASSES = {
-  "Análise técnica": "b-analise",
-  Aprovado: "b-aprovado",
-  Reprovado: "b-reprovado",
+  "Análise técnica":        "b-analise",
+  "Aprovado":               "b-aprovado",
+  "Reprovado":              "b-reprovado",
   "Aguardando nova indicação": "b-aguardando",
-  "Em processo": "b-processo",
-  Empenhado: "b-empenhado",
-  Liquidado: "b-liquidado",
-  Pago: "b-pago",
-  Concluído: "b-concluido",
-  Devolvida: "b-devolvida",
+  "Em processo":            "b-processo",
+  "Empenhado":              "b-empenhado",
+  "Liquidado":              "b-liquidado",
+  "Pago":                   "b-pago",
+  "Concluído":              "b-concluido",
+  "Devolvida":              "b-devolvida",
 };
 
 const DOCUMENT_TYPES = [
   { field: "planoTrabalho", label: "Plano de Trabalho", color: "#f97316" },
-  { field: "notaFiscal", label: "Nota Fiscal", color: "#22c55e" },
+  { field: "notaFiscal",    label: "Nota Fiscal",       color: "#22c55e" },
 ];
 
 const ELEMENTS = {
-  tableBody: document.getElementById("tbody"),
-  resultCount: document.getElementById("count"),
-  searchInput: document.getElementById("busca"),
-  statusFilter: document.getElementById("fStatus"),
-  typeFilter: document.getElementById("fTipo"),
-  sectorFilter: document.getElementById("fSec"),
-  overlay: document.getElementById("ov"),
-  drawer: document.getElementById("drw"),
-  drawerClose: document.getElementById("drw-close"),
-  drawerTitle: document.getElementById("d-tit"),
+  tableBody:      document.getElementById("tbody"),
+  resultCount:    document.getElementById("count"),
+  searchInput:    document.getElementById("busca"),
+  statusFilter:   document.getElementById("fStatus"),
+  typeFilter:     document.getElementById("fTipo"),
+  sectorFilter:   document.getElementById("fSec"),
+  overlay:        document.getElementById("ov"),
+  drawer:         document.getElementById("drw"),
+  drawerClose:    document.getElementById("drw-close"),
+  drawerTitle:    document.getElementById("d-tit"),
   drawerSubtitle: document.getElementById("d-sub"),
-  drawerBody: document.getElementById("d-body"),
+  drawerBody:     document.getElementById("d-body"),
 };
 
 const sortState = {
-  column: null, // Field key currently sorted by, or null for default order
+  column: null,
   ascending: true,
 };
+
+// ── Filter population ────────────────────────────────────────
+
+function populateFilterOptions() {
+  const statuses = [...new Set(data.map((a) => a.status).filter(Boolean))];
+  const sectors = [...new Set(data.map((a) => a.secretaria).filter(Boolean))].sort();
+  const types = [...new Set(data.map(a => a.tipo).filter(Boolean))].sort();
+
+  statuses.forEach((status) => {
+    const option = document.createElement("option");
+    option.value = status;
+    option.textContent = status;
+    ELEMENTS.statusFilter.appendChild(option);
+  });
+
+  sectors.forEach((sector) => {
+    const option = document.createElement("option");
+    option.value = sector;
+    option.textContent = sector;
+    ELEMENTS.sectorFilter.appendChild(option);
+  });
+
+  types.forEach((type) => {
+    const option = document.createElement("option");
+    option.value = type;
+    option.textContent = type;
+    ELEMENTS.typeFilter.appendChild(option);
+});
+}
+
+// ── HTML builders ────────────────────────────────────────────
 
 function buildPdfIconSvg(color) {
   return (
@@ -68,23 +99,19 @@ function buildTableDocButton(hasDocument, label, color) {
 }
 
 function buildDrawerDocumentLinks(amendment) {
-  const links = DOCUMENT_TYPES.map(({ field, label, color }) => {
-    const isAvailable = amendment[field];
+  return DOCUMENT_TYPES.map(({ field, label, color }) => {
+    const isAvailable = !!amendment[field];
     const activeColor = isAvailable ? color : "#9ca3af";
-    const cssClass = isAvailable ? "drw-doc" : "drw-doc off";
-    const docAttr = isAvailable ? `data-doc="${label}"` : "";
-    const labelText = label.replace(" / ", "/<br>");
+    const cssClass    = isAvailable ? "drw-doc" : "drw-doc off";
+    const docAttr     = isAvailable ? `data-doc="${label}"` : "";
 
     return (
       `<a class="${cssClass}" href="#" ${docAttr}>` +
       buildPdfIconSvg(activeColor) +
-      `<span class="drw-doc-lbl doc-label--${isAvailable ? "active" : "inactive"}"` +
-      ` style="color:${activeColor}">${labelText}</span>` +
+      `<span class="drw-doc-lbl" style="color:${activeColor}">${label}</span>` +
       `</a>`
     );
-  });
-
-  return links.join("");
+  }).join("");
 }
 
 function buildDrawerField(label, valueHtml) {
@@ -105,27 +132,54 @@ function buildDrawerSection(title, contentHtml) {
   );
 }
 
+// ── Table rendering ──────────────────────────────────────────
+
+function buildTableRow(amendment) {
+  const badgeClass = STATUS_BADGE_CLASSES[amendment.status] ?? "b-analise";
+
+  const docCells = DOCUMENT_TYPES.map(({ field, label, color }, index) => {
+    const cellClass = index === 0 ? "td-center td-sep" : "td-center";
+    return `<td class="${cellClass}">${buildTableDocButton(amendment[field], label, color)}</td>`;
+  }).join("");
+
+  return (
+    `<tr data-id="${amendment.numeroEmenda}">` +
+    `<td class="td-nw"><span class="em-num">${amendment.numeroEmenda}</span></td>` +
+    `<td><span class="td-nw em-autor">${amendment.parlamentarAutor}</span></td>` +
+    `<td><span class="td-nw em-valor">${amendment.secretaria}</span></td>` +
+    `<td><span class="td-nw em-benef">${amendment.beneficiario}</span></td>` +
+    `<td><span class="td-nw em-obj">${amendment.objeto}</span></td>` +
+    `<td><span class="td-nw em-valor">${amendment.tipo}</span></td>` +
+    `<td class="td-nw"><span class="em-valor">${amendment.valorPrevisto}</span></td>` +
+    `<td class="td-nw"><span class="em-valor">${amendment.valorEmpenhado}</span></td>` +
+    `<td class="td-nw"><span class="em-valor">${amendment.valorLiquidado}</span></td>` +
+    `<td class="td-nw"><span class="em-valor">${amendment.valorPago}</span></td>` +
+    `<td class="td-nw"><span class="badge ${badgeClass}">${amendment.status}</span></td>` +
+    `<td class="td-nw"><span class="em-dataEstimadaConclusao">${amendment.dataEstimadaConclusao}</span></td>` +
+    docCells +
+    `</tr>`
+  );
+}
+
 function renderTable(amendments) {
   if (!amendments.length) {
-    ELEMENTS.tableBody.innerHTML = `<tr class="empty-row"><td colspan="10">Nenhuma emenda encontrada.</td></tr>`;
+    ELEMENTS.tableBody.innerHTML = `<tr class="empty-row"><td colspan="14">Nenhuma emenda encontrada.</td></tr>`;
     ELEMENTS.resultCount.textContent = "0 emendas";
     return;
   }
 
   ELEMENTS.tableBody.innerHTML = amendments.map(buildTableRow).join("");
 
-  // Row click — open drawer (ignoring clicks that land on a doc button)
+  // Row click — open drawer (ignoring clicks on doc buttons)
   ELEMENTS.tableBody.querySelectorAll("tr[data-id]").forEach((row) => {
     row.addEventListener("click", (event) => {
       if (event.target.closest(".doc-btn")) return;
       const amendment = data.find((item) => String(item.numeroEmenda) === row.dataset.id);
-
-      console.log(amendment)
       openDrawer(amendment);
     });
   });
 
-  // TODO insert link here
+  // TODO: replace alert with real document link
   ELEMENTS.tableBody.querySelectorAll(".doc-btn").forEach((button) => {
     button.addEventListener("click", (event) => {
       event.preventDefault();
@@ -138,57 +192,28 @@ function renderTable(amendments) {
   ELEMENTS.resultCount.textContent = `${amendments.length} ${label}`;
 }
 
-function buildTableRow(amendment) {
-  const badgeClass = STATUS_BADGE_CLASSES[amendment.status] ?? "b-analise";
-
-  const docCells = DOCUMENT_TYPES.map(({ field, label, color }, index) => {
-    const isFirstDoc = index === 0;
-    const cellClass = isFirstDoc ? "td-center td-sep" : "td-center";
-    return `<td class="${cellClass}">${buildTableDocButton(amendment[field], label, color)}</td>`;
-  }).join("");
-
-  return (
-    `<tr data-id="${amendment.numeroEmenda}">` +
-    `<td class="td-nw"><span class="em-num">${amendment.numeroEmenda}</span></td>` +
-    `<td><span class="em-autor">${amendment.parlamentarAutor}</span></td>` +
-    `<td>` +
-    `<span class="em-benef">${amendment.beneficiario}</span>` +
-    `</td>` +
-    `<td><span class="em-obj" title="${amendment.objeto}">${amendment.objeto}</span></td>` +
-    `<td class="td-nw"><span class="em-valor">${amendment.valorPrevisto}</span></td>` +
-    `<td class="td-nw"><span class="em-valor">${amendment.valorEmpenhado}</span></td>` +
-    `<td class="td-nw"><span class="em-valor">${amendment.valorLiquidado}</span></td>` +
-    `<td class="td-nw"><span class="em-valor">${amendment.valorPago}</span></td>` +
-    `<td class="td-nw"><span class="badge ${badgeClass}">${amendment.status}</span></td>` +
-    `<td class="td-nw"><span class="em-dataEstimadaConclusao">${amendment.dataEstimadaConclusao}</span></td>` +
-    docCells +
-    `</tr>`
-  );
-}
+// ── Filtering & sorting ──────────────────────────────────────
 
 function getFilteredAmendments() {
-  const searchTerm = ELEMENTS.searchInput.value.toLowerCase();
+  const searchTerm   = ELEMENTS.searchInput.value.toLowerCase();
   const statusFilter = ELEMENTS.statusFilter.value;
-  const typeFilter = ELEMENTS.typeFilter.value;
+  const typeFilter   = ELEMENTS.typeFilter.value;
   const sectorFilter = ELEMENTS.sectorFilter.value;
 
   return data.filter((amendment) => {
     const searchableText = [
-      amendment.id,
-      amendment.autor,
-      amendment.benef,
-      amendment.obj,
+      amendment.numeroEmenda,
+      amendment.parlamentarAutor,
+      amendment.beneficiario,
+      amendment.objeto,
       amendment.status,
-      amendment.sec,
-      amendment.cod,
-    ]
-      .join(" ")
-      .toLowerCase();
+      amendment.secretaria,
+    ].join(" ").toLowerCase();
 
-    const matchesSearch = !searchTerm || searchableText.includes(searchTerm);
-    const matchesStatus = !statusFilter || amendment.status === statusFilter;
-    const matchesType = !typeFilter || amendment.tipo === typeFilter;
-    const matchesSector = !sectorFilter || amendment.sec === sectorFilter;
+    const matchesSearch  = !searchTerm   || searchableText.includes(searchTerm);
+    const matchesStatus  = !statusFilter || amendment.status     === statusFilter;
+    const matchesType    = !typeFilter   || amendment.tipo       === typeFilter;
+    const matchesSector  = !sectorFilter || amendment.secretaria === sectorFilter;
 
     return matchesSearch && matchesStatus && matchesType && matchesSector;
   });
@@ -212,7 +237,7 @@ function getSortedAmendments(amendments) {
 
 function applyFiltersAndRender() {
   const filtered = getFilteredAmendments();
-  const sorted = getSortedAmendments(filtered);
+  const sorted   = getSortedAmendments(filtered);
   renderTable(sorted);
 }
 
@@ -224,60 +249,49 @@ function handleColumnSort(columnKey, headerEl) {
     sortState.ascending = true;
   }
 
-  document
-    .querySelectorAll("thead th")
-    .forEach((th) => th.classList.remove("sorted"));
+  document.querySelectorAll("thead th").forEach((th) => th.classList.remove("sorted"));
   headerEl.classList.add("sorted");
 
   applyFiltersAndRender();
 }
 
-function openDrawer(amendment) {
-  console.log(amendment)
+// ── Drawer ───────────────────────────────────────────────────
 
+function openDrawer(amendment) {
   const badgeClass = STATUS_BADGE_CLASSES[amendment.status] ?? "b-analise";
 
-  ELEMENTS.drawerTitle.textContent = `${amendment.numeroEmenda} — ${amendment.beneficiario}`;
+  ELEMENTS.drawerTitle.textContent    = `${amendment.numeroEmenda} — ${amendment.beneficiario}`;
   ELEMENTS.drawerSubtitle.textContent = amendment.objeto;
+
+  const hasValues = amendment.valorPrevisto && amendment.valorPrevisto !== "—";
 
   const identificationFields =
     `<div class="drw-field">` +
-    `<div class="drw-lbl">Status</div>` +
-    `<span class="badge ${badgeClass}">${amendment.status}</span>` +
+      `<div class="drw-lbl">Status</div>` +
+      `<span class="badge ${badgeClass}">${amendment.status}</span>` +
     `</div>` +
-    buildDrawerField("Autor(a)", amendment.parlamentarAutor);
+    buildDrawerField("Autor(a)", amendment.parlamentarAutor) +
+    buildDrawerField("Tipo", amendment.tipo) +
+    buildDrawerField("Secretaria", amendment.secretaria);
 
-  const resourceFields =
-    (amendment.valor !== "—"
-      ? buildDrawerField("Valor Previsto", `<span class="big">${amendment.valorPrevisto}</span>`)
-      : "") +
-    (amendment.valor !== "—"
-      ? buildDrawerField("Valor Empenhado", `<span class="big">${amendment.valorEmpenhado}</span>`)
-      : "") +
-    (amendment.valor !== "—"
-      ? buildDrawerField("Valor Liquidado", `<span class="big">${amendment.valorLiquidado}</span>`)
-      : "") +
-    (amendment.valor !== "—"
-      ? buildDrawerField("Valor Pago", `<span class="big">${amendment.valorPago}</span>`)
-      : "");
+  const resourceFields = !hasValues ? "" :
+    buildDrawerField("Valor Previsto",   `<span class="drw-val--big">${amendment.valorPrevisto}</span>`) +
+    buildDrawerField("Valor Empenhado",  `<span class="drw-val--big">${amendment.valorEmpenhado}</span>`) +
+    buildDrawerField("Valor Liquidado",  `<span class="drw-val--big">${amendment.valorLiquidado}</span>`) +
+    buildDrawerField("Valor Pago",       `<span class="drw-val--big">${amendment.valorPago}</span>`);
 
   ELEMENTS.drawerBody.innerHTML =
     buildDrawerSection("Identificação", identificationFields) +
     buildDrawerSection("Objeto e Recursos", resourceFields) +
-    buildDrawerSection(
-      "Documentos",
-      `<div class="drw-docs">${buildDrawerDocumentLinks(amendment)}</div>`,
-    );
+    buildDrawerSection("Documentos", `<div class="drw-docs">${buildDrawerDocumentLinks(amendment)}</div>`);
 
-  // TODO insert link here
-  ELEMENTS.drawerBody
-    .querySelectorAll(".drw-doc:not(.off)")
-    .forEach((button) => {
-      button.addEventListener("click", (event) => {
-        event.preventDefault();
-        alert(`${button.dataset.doc}\n(link configurado pelo TI)`);
-      });
+  // TODO: replace alert with real document link
+  ELEMENTS.drawerBody.querySelectorAll(".drw-doc:not(.off)").forEach((button) => {
+    button.addEventListener("click", (event) => {
+      event.preventDefault();
+      alert(`${button.dataset.doc}\n(link configurado pelo TI)`);
     });
+  });
 
   ELEMENTS.overlay.classList.add("open");
   ELEMENTS.drawer.classList.add("open");
@@ -288,9 +302,11 @@ function closeDrawer() {
   ELEMENTS.drawer.classList.remove("open");
 }
 
-ELEMENTS.searchInput.addEventListener("input", applyFiltersAndRender);
+// ── Event listeners ──────────────────────────────────────────
+
+ELEMENTS.searchInput.addEventListener("input",  applyFiltersAndRender);
 ELEMENTS.statusFilter.addEventListener("change", applyFiltersAndRender);
-ELEMENTS.typeFilter.addEventListener("change", applyFiltersAndRender);
+ELEMENTS.typeFilter.addEventListener("change",   applyFiltersAndRender);
 ELEMENTS.sectorFilter.addEventListener("change", applyFiltersAndRender);
 
 ELEMENTS.overlay.addEventListener("click", closeDrawer);
@@ -304,4 +320,7 @@ document.querySelectorAll("th[data-col]").forEach((th) => {
   th.addEventListener("click", () => handleColumnSort(th.dataset.col, th));
 });
 
+// ── Init ─────────────────────────────────────────────────────
+
+populateFilterOptions();
 applyFiltersAndRender();

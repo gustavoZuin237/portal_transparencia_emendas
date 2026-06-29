@@ -16,17 +16,7 @@ def format_name(value: str) -> str:
     return value.title()
 
 def format_date(value) -> str:
-    """
-    Converts dates to DD/MM/YYYY
-    """
-
-    if not value:
-        return ""
-
-    if isinstance(value, datetime):
-        return value.strftime("%d/%m/%Y")
-
-    return str(value).strip()
+    return "" if not value else str(value).strip()
 
 def format_emenda(value) -> str:
     """
@@ -56,7 +46,6 @@ def format_emenda(value) -> str:
 
     return f"{match.group(1)}.{match.group(2)}"
 
-
 def parse_money(value) -> float:
     """
     Accept:
@@ -82,7 +71,6 @@ def parse_money(value) -> float:
     value = value.replace(",", ".")
 
     return float(value)
-
 
 def format_money(value) -> str:
     """

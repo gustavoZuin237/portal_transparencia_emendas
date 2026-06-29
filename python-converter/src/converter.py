@@ -1,6 +1,6 @@
 from openpyxl import load_workbook
 
-from src.models import Emenda, Status
+from src.models import Emenda, Status, Secretaria
 from src.formatter import (
     format_emenda,
     format_name,
@@ -18,7 +18,6 @@ from utils.logger import get_logger
 logger = get_logger()
 
 def convert_file(path):
-
     workbook = load_workbook(path)
     sheet = workbook.active
 
@@ -31,7 +30,6 @@ def convert_file(path):
 
 
     for row in sheet.iter_rows(min_row=2, values_only=True):
-
         data = dict(zip(headers, row))
 
         errors = validate_row(data)
@@ -44,10 +42,15 @@ def convert_file(path):
 
         emenda = Emenda(
             numeroEmenda=format_emenda(data["Número"]),
+            
             parlamentarAutor=format_name(data["Parlamentar Autor"]),
+            
+            secretaria=data["Secretaria"],
 
             beneficiario=data["Beneficiário"] or "",
             objeto=data["Objeto"] or "",
+            
+            tipo=data["Tipo"],
 
             valorPrevisto=format_money(
                 data["Valor Previsto"]

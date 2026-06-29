@@ -1,0 +1,160 @@
+/* ── Overlay ─────────────────────────────────────────────── */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 200;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+}
+.overlay.open {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* ── Drawer shell ────────────────────────────────────────── */
+.drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 400px;
+  height: 100%;
+  background: #fff;
+  border-left: 3px solid var(--c-accent);
+  z-index: 201;
+  transform: translateX(100%);
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+.drawer.open {
+  transform: translateX(0);
+}
+
+/* ── Drawer header ───────────────────────────────────────── */
+.drw-hdr {
+  background: var(--c-bg-mid);
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--c-border);
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+.drw-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--c-text-primary);
+  line-height: 1.3;
+}
+.drw-sub {
+  font-size: 11px;
+  color: var(--c-text-muted);
+  margin-top: 2px;
+  line-height: 1.4;
+}
+.drw-close {
+  background: transparent;
+  border: 1px solid var(--c-border);
+  color: var(--c-text-muted);
+  border-radius: 5px;
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.15s;
+  font-family: inherit;
+}
+.drw-close:hover {
+  border-color: var(--c-accent);
+  color: var(--c-accent);
+}
+
+/* ── Drawer body ─────────────────────────────────────────── */
+.drw-body {
+  padding: 18px;
+  flex: 1;
+}
+.drw-sec {
+  margin-bottom: 20px;
+}
+.drw-sec-title {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--c-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  border-bottom: 1px solid #edf0f4;
+  padding-bottom: 6px;
+  margin-bottom: 12px;
+}
+.drw-field {
+  margin-bottom: 10px;
+}
+.drw-lbl {
+  font-size: 10px;
+  color: #9fb0c0;
+  font-weight: 500;
+  margin-bottom: 2px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.drw-val {
+  font-size: 12px;
+  color: var(--c-text-body);
+  line-height: 1.5;
+}
+.drw-val--big {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--c-accent);
+}
+
+/* ── Drawer document links ───────────────────────────────── */
+.drw-docs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 4px;
+}
+.drw-doc {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 14px 8px;
+  background: #f7f9fc;
+  border: 1px solid #dde3ea;
+  border-radius: 8px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.15s;
+  text-align: center;
+}
+.drw-doc:hover {
+  background: #dbeafe;
+  border-color: #93c5fd;
+}
+.drw-doc.off {
+  opacity: 0.3;
+  pointer-events: none;
+}
+.drw-doc svg {
+  width: 26px;
+  height: 26px;
+}
+.drw-doc-lbl {
+  font-size: 10px;
+  color: var(--c-text-subtle);
+  line-height: 1.3;
+  font-weight: 500;
+}

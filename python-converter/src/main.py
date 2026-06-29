@@ -46,10 +46,14 @@ def main():
                 indent=2
             )
 
-
-        logger.info(
-            f"Conversion finished successfully: {len(output)} records"
-        )
+        if len(output) > 0:
+            logger.info(
+                f"✅ Conversion finished successfully: {len(output)} records"
+            )
+        else:
+            logger.error(
+                f"❌ Conversion failed"
+            )
 
 
     except Exception:

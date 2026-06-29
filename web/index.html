@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Emendas Impositivas 2026 — Taubaté</title>
     
-    <link rel="stylesheet" href="./styles.css">
+    <link rel="stylesheet" href="./base.css">
+    <link rel="stylesheet" href="./table.css">
+    <link rel="stylesheet" href="./drawer.css">
   </head>
   <body>
     <div class="portal">
@@ -21,60 +23,21 @@
         <input type="text" id="busca" placeholder="Buscar beneficiário, emenda, autor..." />
         <select id="fStatus">
           <option value="">Todos os status</option>
-          <option>Análise técnica</option>
-          <option>Em processo</option>
-          <option>Empenhado</option>
-          <option>Liquidado</option>
-          <option>Pago</option>
-          <option>Concluído</option>
-          <option>Devolvida</option>
         </select>
         <select id="fTipo">
           <option value="">Todos os tipos</option>
-          <option value="OSC">Entidades</option>
-          <option value="Direta">Execução direta</option>
         </select>
         <select id="fSec">
           <option value="">Todas as secretarias</option>
-          <option>Secretaria de Gabinete</option>
-          <option>Secretaria de Governo e Relações Institucionais</option>
-          <option>Procuradoria Geral do Município</option>
-          <option>Secretaria de Desenvolvimento, Inovação e Turismo</option>
-          <option>Secretaria de Desenvolvimento e Inclusão Social</option>
-          <option>Secretaria de Habitação</option>
-          <option>Secretaria de Meio Ambiente e do Bem Estar Animal</option>
-          <option>Secretaria de Obras</option>
-          <option>Secretaria da Educação</option>
-          <option>Secretaria de Cultura e Economia Criativa</option>
-          <option>Secretaria de Segurança Pública</option>
-          <option>Secretaria de Planejamento Urbano</option>
-          <option>Secretaria de Mobilidade Urbana</option>
-          <option>Secretaria de Esportes, Lazer e Qualidade de Vida</option>
-          <option>Secretaria de Administração</option>
-          <option>Secretaria da Fazenda</option>
-          <option>Secretaria da Saúde</option>
-          <option>Secretaria de Serviços Públicos</option>
         </select>
         <span class="toolbar-count" id="count"></span>
       </div>
 
       <div class="table-wrap">
         <table>
-          <colgroup>
-            <col style="width: 72px" />
-            <col style="width: 82px" />
-            <col style="width: 115px" />
-            <col style="width: 155px" />
-            <col style="width: 185px" />
-            <col style="width: 82px" />
-            <col style="width: 120px" />
-            <col style="width: 46px" />
-            <col style="width: 46px" />
-            <col style="width: 46px" />
-          </colgroup>
           <thead>
             <tr>
-              <th colspan="10" class="th-nd" style="background:#0d1e38;color:#5a8ab0;font-size:10px;border-bottom:1px solid #e8890c;padding-bottom:4px;cursor:default;">
+              <th colspan="12" class="th-group">
                 EMENDAS
               </th>
               <th colspan="2" class="docs-header th-sep" style="font-size:10px;">
@@ -84,8 +47,10 @@
             <tr>
               <th class="td-center table-header" data-col="numeroEmenda">Emenda</th>
               <th class="td-center table-header" data-col="parlamentarAutor">Parlamentar Autor</th>
+              <th class="td-center table-header" data-col="secretaria">Secretaria</th>
               <th class="td-center table-header" data-col="beneficiario">Beneficiário</th>
               <th class="td-center table-header" data-col="objeto">Objeto</th>
+              <th class="td-center table-header" data-col="tipo">Tipo</th>
               <th class="td-center table-header" data-col="valorPrevisto">Valor Previsto</th>
               <th class="td-center table-header" data-col="valorEmpenhado">Valor Empenhado</th>
               <th class="td-center table-header" data-col="valorLiquidado">Valor Liquidado</th>

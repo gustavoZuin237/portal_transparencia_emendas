@@ -4,6 +4,10 @@ from src.models import Status
 
 from datetime import datetime
 
+import re
+
+MM_YYYY_PATTERN = re.compile(r"^(0[1-9]|1[0-2])/\d{4}$")
+
 EMENDA_PATTERN = re.compile(
     r"^\d{3}\.\d{1,2}$"
 )
@@ -13,20 +17,16 @@ def validate_emenda(value: str) -> bool:
         EMENDA_PATTERN.match(value)
     )
 
-def validate_date(value):
+def validate_date(value) -> str:    
     if not value:
-        return True
+        return ""
 
-    try:
-        datetime.strptime(
-            value,
-            "%d/%m/%Y"
-        )
+    if isinstance(value, datetime):
+        return value.strftime("%m/%Y")
 
-        return True
+    value = str(value).strip()
 
-    except ValueError:
-        return False
+    return value if MM_YYYY_PATTERN.fullmatch(value) else ""
 
 def validate_status(value: str) -> bool:
 

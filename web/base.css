@@ -1,0 +1,138 @@
+/* ── Tokens ──────────────────────────────────────────────── */
+:root {
+  --c-bg-deep:    #091828;
+  --c-bg-dark:    #0d1e38;
+  --c-bg-mid:     #102444;
+  --c-bg-input:   #1a3050;
+  --c-border:     #1e3a5f;
+  --c-border-input: #2a4a70;
+  --c-accent:     #e8890c;
+  --c-text-primary:   #fff;
+  --c-text-body:      #1a2a3a;
+  --c-text-muted:     #8ba8cc;
+  --c-text-subtle:    #5a7a9a;
+  --c-text-input:     #c8daf0;
+  --c-text-placeholder: #5a7a9a;
+  --c-hover-row:  #eef4ff;
+  --c-row-even:   #f7f9fc;
+}
+
+/* ── Reset ───────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 13px;
+  background: #f0f4f8;
+}
+
+/* ── Portal shell ────────────────────────────────────────── */
+.portal {
+  background: #fff;
+  min-height: 100vh;
+}
+
+/* ── Header ──────────────────────────────────────────────── */
+.portal-header {
+  background: var(--c-bg-mid);
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.portal-header-left {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.portal-pretitle {
+  font-size: 10px;
+  color: var(--c-text-muted);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+.portal-title {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--c-text-primary);
+}
+.portal-badge {
+  background: var(--c-accent);
+  color: var(--c-text-primary);
+  font-size: 11px;
+  font-weight: 500;
+  padding: 5px 12px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+
+/* ── Toolbar ─────────────────────────────────────────────── */
+.toolbar {
+  background: var(--c-bg-dark);
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  border-bottom: 1px solid var(--c-border);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.toolbar input,
+.toolbar select {
+  background: var(--c-bg-input);
+  border: 0.5px solid var(--c-border-input);
+  color: var(--c-text-input);
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: 12px;
+  outline: none;
+  font-family: inherit;
+}
+.toolbar input {
+  width: 220px;
+}
+.toolbar input::placeholder {
+  color: var(--c-text-placeholder);
+}
+.toolbar select {
+  max-width: 200px;
+  cursor: pointer;
+}
+.toolbar-count {
+  margin-left: auto;
+  font-size: 11px;
+  color: var(--c-text-muted);
+  white-space: nowrap;
+}
+
+/* ── Footer ──────────────────────────────────────────────── */
+.footer {
+  background: var(--c-bg-dark);
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.footer-left,
+.footer-right {
+  font-size: 10px;
+  color: var(--c-text-subtle);
+}
+.footer a {
+  color: var(--c-text-muted);
+  text-decoration: none;
+}
+.footer a:hover {
+  color: var(--c-accent);
+}
