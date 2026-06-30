@@ -1,6 +1,6 @@
 from openpyxl import load_workbook
 
-from src.models import Emenda, Status, Secretaria
+from src.models import Emenda, Status
 from src.formatter import (
     format_emenda,
     format_name,
@@ -12,6 +12,8 @@ from src.formatter import (
 from src.validator import (
     validate_row
 )
+
+from src.documents import process_documents
 
 from utils.logger import get_logger
 
@@ -39,6 +41,9 @@ def convert_file(path):
                 f'Linha {row_number + 2} no arquivo "{path.name}" ignorada. Motivo(s): {errors}'
             )
             continue
+        
+        numero_emenda = format_emenda(data["Número"])
+        documentos = process_documents(numero_emenda)
 
         emenda = Emenda(
             numeroEmenda=format_emenda(data["Número"]),
@@ -82,17 +87,21 @@ def convert_file(path):
 
             status=Status(data["Status"]),
 
-            planoTrabalho=bool(
-                data["Plano de Trabalho"]
-            ),
-
             dataEstimadaConclusao=format_date(
                 data["Data Estimada de Conclusão"]
             ),
 
+            planoTrabalho=bool(
+                data["Plano de Trabalho"]
+            ),
+
             notaFiscal=bool(
                 data["Nota Fiscal"]
-            )
+            ),
+            
+            hasDocuments=bool(documentos),
+            
+            documents=documentos
         )
 
         result.append(emenda)
