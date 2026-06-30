@@ -33,34 +33,32 @@ class Secretaria(Enum):
     "Secretaria da Fazenda"
     "Secretaria da Saúde"
     "Secretaria de Serviços Públicos"
-
-
 @dataclass
 class Emenda:
-    numeroEmenda: str
-    parlamentarAutor: str
-    secretaria: str
-    beneficiario: str
-    objeto: str
-    tipo: str
+    numeroEmenda: str # xxx.xx - 100.01
+    parlamentarAutor: str #
+    secretaria: str # Texto livre; Deve ser selecionada no preenchimento da planilha
+    beneficiario: str # Texto livre
+    objeto: str # Texto livre
+    tipo: str # "Entidades" ou "Execução Direta"
 
-    valorPrevisto: str
-    valorPrevistoNum: float
+    valorPrevisto: str # Valor em reais, formatado livremente
+    valorPrevistoNum: float # Valor númerico cru guardado para uso interno da aplicação; Não aparece para o usuário ou consta na planilha
 
-    valorEmpenhado: str
-    valorEmpenhadoNum: float
+    valorEmpenhado: str # Valor em reais, formatado livremente
+    valorEmpenhadoNum: float # Valor númerico cru guardado para uso interno da aplicação; Não aparece para o usuário ou consta na planilha
 
-    valorLiquidado: str
-    valorLiquidadoNum: float
+    valorLiquidado: str # Valor em reais, formatado livremente
+    valorLiquidadoNum: float # Valor númerico cru guardado para uso interno da aplicação; Não aparece para o usuário ou consta na planilha
 
-    valorPago: str
-    valorPagoNum: float
+    valorPago: str # Valor em reais, formatado livremente
+    valorPagoNum: float # Valor númerico cru guardado para uso interno da aplicação; Não aparece para o usuário ou consta na planilha
 
-    status: Status
+    status: Status # Deve ser um dos valores apresentados na classe Status acima
 
-    dataEstimadaConclusao: str
-    planoTrabalho: bool
-    notaFiscal: bool
+    dataEstimadaConclusao: str # xx/xxxx - 10/2022
+    planoTrabalho: bool # "Sim" ou "Não"
+    notaFiscal: bool # "Sim" ou "Não"
 
 
     def to_dict(self):

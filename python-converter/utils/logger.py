@@ -20,7 +20,7 @@ def get_logger(name: str = "converter") -> logging.Logger:
 
     formatter = logging.Formatter(
         "[%(asctime)s] %(levelname)s - %(message)s",
-        datefmt="%Y-%m-%d %H:%M:%S"
+        datefmt="%d-%m-%Y %H:%M"
     )
 
 

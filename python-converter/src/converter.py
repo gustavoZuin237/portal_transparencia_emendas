@@ -29,14 +29,14 @@ def convert_file(path):
     result = []
 
 
-    for row in sheet.iter_rows(min_row=2, values_only=True):
+    for row_number, row in enumerate(sheet.iter_rows(min_row=2, values_only=True)):
         data = dict(zip(headers, row))
 
         errors = validate_row(data)
 
         if errors:
             logger.warning(
-                f"Linha ignorada: {errors}"
+                f'Linha {row_number + 2} no arquivo "{path.name}" ignorada. Motivo(s): {errors}'
             )
             continue
 

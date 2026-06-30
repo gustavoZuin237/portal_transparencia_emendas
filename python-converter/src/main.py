@@ -8,19 +8,19 @@ from utils.logger import get_logger
 def main():
     logger = get_logger()
 
-    logger.info("Starting conversion")
+    logger.info("Iniciando conversão")
 
     try:
         files = list(INPUT_FOLDER.glob("*.xlsx"))
 
         if not files:
-            logger.warning("No spreadsheet found")
+            logger.warning("Nenhuma planilha encontrada")
             return
 
         all_emendas = []
 
         for file in files:
-            logger.info(f"Processing {file.name}")
+            logger.info(f"Processando o arquivo {file.name}")
 
             emendas = convert_file(file)
 
@@ -48,17 +48,17 @@ def main():
 
         if len(output) > 0:
             logger.info(
-                f"✅ Conversion finished successfully: {len(output)} records"
+                f"✅ Conversão concluída com sucesso: {len(output)} registros feitos"
             )
         else:
             logger.error(
-                f"❌ Conversion failed"
+                f"❌ Falha na conversão"
             )
 
 
     except Exception:
         logger.exception(
-            "Conversion failed"
+            f"❌ Falha na conversão"
         )
 
 
