@@ -121,24 +121,24 @@
 
 /* ── Drawer document links ───────────────────────────────── */
 .drw-docs {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  flex-direction: column;
   gap: 8px;
   margin-top: 4px;
 }
 .drw-doc {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  gap: 6px;
-  padding: 14px 8px;
+  gap: 10px;
+  padding: 10px 12px;
   background: #f7f9fc;
   border: 1px solid #dde3ea;
   border-radius: 8px;
   cursor: pointer;
   text-decoration: none;
   transition: all 0.15s;
-  text-align: center;
+  text-align: left;
 }
 .drw-doc:hover {
   background: #dbeafe;
@@ -149,12 +149,14 @@
   pointer-events: none;
 }
 .drw-doc svg {
-  width: 26px;
-  height: 26px;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
 }
 .drw-doc-lbl {
-  font-size: 10px;
+  font-size: 11px;
   color: var(--c-text-subtle);
   line-height: 1.3;
   font-weight: 500;
+  word-break: break-word;
 }

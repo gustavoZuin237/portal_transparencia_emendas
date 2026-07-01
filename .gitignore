@@ -1,6 +1,7 @@
 *.json
 *.log
 *.xlsx
-.venv
+*.pdf
 
+.venv
 __pycache__

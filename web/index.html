@@ -4,23 +4,29 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Emendas Impositivas 2026 — Taubaté</title>
-    
-    <link rel="stylesheet" href="./base.css">
-    <link rel="stylesheet" href="./table.css">
-    <link rel="stylesheet" href="./drawer.css">
+
+    <link rel="stylesheet" href="./base.css" />
+    <link rel="stylesheet" href="./table.css" />
+    <link rel="stylesheet" href="./drawer.css" />
   </head>
   <body>
     <div class="portal">
       <div class="portal-header">
         <div class="portal-header-left">
           <span class="portal-pretitle">Prefeitura Municipal de Taubaté</span>
-          <span class="portal-title">Portal de Transparência — Emendas Impositivas 2026</span>
+          <span class="portal-title"
+            >Portal de Transparência — Emendas Impositivas 2026</span
+          >
         </div>
         <span class="portal-badge">Exercício 2026</span>
       </div>
 
       <div class="toolbar">
-        <input type="text" id="busca" placeholder="Buscar beneficiário, emenda, autor..." />
+        <input
+          type="text"
+          id="busca"
+          placeholder="Buscar beneficiário, emenda, autor..."
+        />
         <select id="fStatus">
           <option value="">Todos os status</option>
         </select>
@@ -37,28 +43,52 @@
         <table>
           <thead>
             <tr>
-              <th colspan="12" class="th-group">
-                EMENDAS
-              </th>
-              <th colspan="2" class="docs-header th-sep" style="font-size:10px;">
+              <th colspan="12" class="th-group">EMENDAS</th>
+              <th
+                colspan="2"
+                class="docs-header th-sep"
+                style="font-size: 10px"
+              >
                 DOCUMENTOS
               </th>
             </tr>
             <tr>
-              <th class="td-center table-header" data-col="numeroEmenda">Emenda</th>
-              <th class="td-center table-header" data-col="parlamentarAutor">Parlamentar Autor</th>
-              <th class="td-center table-header" data-col="secretaria">Secretaria</th>
-              <th class="td-center table-header" data-col="beneficiario">Beneficiário</th>
+              <th class="td-center table-header" data-col="numeroEmenda">
+                Emenda
+              </th>
+              <th class="td-center table-header" data-col="parlamentarAutor">
+                Parlamentar Autor
+              </th>
+              <th class="td-center table-header" data-col="secretaria">
+                Secretaria
+              </th>
+              <th class="td-center table-header" data-col="beneficiario">
+                Beneficiário
+              </th>
               <th class="td-center table-header" data-col="objeto">Objeto</th>
               <th class="td-center table-header" data-col="tipo">Tipo</th>
-              <th class="td-center table-header" data-col="valorPrevisto">Valor Previsto</th>
-              <th class="td-center table-header" data-col="valorEmpenhado">Valor Empenhado</th>
-              <th class="td-center table-header" data-col="valorLiquidado">Valor Liquidado</th>
-              <th class="td-center table-header" data-col="valorPago">Valor Pago</th>
+              <th class="td-center table-header" data-col="valorPrevisto">
+                Valor Previsto
+              </th>
+              <th class="td-center table-header" data-col="valorEmpenhado">
+                Valor Empenhado
+              </th>
+              <th class="td-center table-header" data-col="valorLiquidado">
+                Valor Liquidado
+              </th>
+              <th class="td-center table-header" data-col="valorPago">
+                Valor Pago
+              </th>
               <th class="td-center table-header" data-col="status">Status</th>
-              <th class="td-center table-header" data-col="dataEstimadaConclusao">Data Estimada de Conclusão</th>
-              <th class="td-center docs-header" title="Plano de Trabalho">Plano de Trabalho</th>
-              <th class="td-center docs-header" title="Nota Fiscal / Comprovante">Nota Fiscal</th>
+              <th
+                class="td-center table-header"
+                data-col="dataEstimadaConclusao"
+              >
+                Data Estimada de Conclusão
+              </th>
+              <th class="td-center docs-header" title="Visualizar os Documentos">
+                Visualizar os Documentos
+              </th>
             </tr>
           </thead>
           <tbody id="tbody"></tbody>
@@ -66,8 +96,16 @@
       </div>
 
       <div class="footer">
-        <span class="footer-left">Atualizado em 30/04/2026 · Clique em qualquer linha para ver detalhes</span>
-        <span class="footer-right">Dados sujeitos a atualização periódica · <a href="mailto:sedis@taubate.sp.gov.br">sedis@taubate.sp.gov.br</a></span>
+        <span class="footer-left"
+          >Atualizado em 30/04/2026 · Clique em qualquer linha para ver
+          detalhes</span
+        >
+        <span class="footer-right"
+          >Dados sujeitos a atualização periódica ·
+          <a href="mailto:sedis@taubate.sp.gov.br"
+            >sedis@taubate.sp.gov.br</a
+          ></span
+        >
       </div>
     </div>
 
